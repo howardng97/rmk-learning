@@ -82,8 +82,8 @@ async fn main(spawner: Spawner) {
     let keyboard_usb_config = KeyboardUsbConfig {
         vid: 0x4c4b,
         pid: 0x4643,
-        manufacturer: "Haobo",
-        product_name: "RMK Keyboard",
+        manufacturer: "HowardN97",
+        product_name: "Nyx44",
         serial_number: "vial:f64c2b3c:000001",
     };
     let vial_config = VialConfig::new(VIAL_KEYBOARD_ID, VIAL_KEYBOARD_DEF);
@@ -97,9 +97,9 @@ async fn main(spawner: Spawner) {
         2806,
     );
     let storage_config = StorageConfig {
-        start_addr: 0,
+        start_addr: 0x0000000,
         num_sectors: 6,
-        ..Default::default()
+        clear_storage: true
     };
     let rmk_config = RmkConfig {
         usb_config: keyboard_usb_config,
@@ -115,10 +115,10 @@ async fn main(spawner: Spawner) {
     };
 
     let (input_pins, output_pins) =
-        config_matrix_pins_nrf!(peripherals: p, input: [P0_12, P0_13], output:  [P0_14, P0_15]);
+        config_matrix_pins_nrf!(peripherals: p, input: [P0_22,P1_00,P0_11,P0_24], output:  [P1_15,P1_13,P1_11,P1_10,P0_09,P1_06,P1_08,P0_31,P0_29,P0_02]);
 
     let central_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7];
-    let peripheral_addr = [0x7e, 0xfe, 0x73, 0x9e, 0x66, 0xe3];
+    let peripheral_addr = [0x7e, 0xfe, 0x73, 0x9e, 0x66, 0xe3]; 
 
     join(
         run_rmk_split_central::<
@@ -127,8 +127,8 @@ async fn main(spawner: Spawner) {
             Driver<'_, USBD, &SoftwareVbusDetect>,
             ROW,
             COL,
-            2,
-            2,
+            4,
+            10,
             0,
             0,
             NUM_LAYER,
@@ -141,7 +141,7 @@ async fn main(spawner: Spawner) {
             central_addr,
             spawner,
         ),
-        run_peripheral_manager::<2, 1, 2, 2>(0, peripheral_addr),
+        run_peripheral_manager::<4, 10, 0, 10>(0, peripheral_addr),
     )
     .await;
 }
