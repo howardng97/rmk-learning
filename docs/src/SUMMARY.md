@@ -16,7 +16,17 @@
 
 # Features
 - [Keyboard Configuration](keyboard_configuration.md)
-- [Keymap](keymap.md)
+    - [Keyboard and matrix](configuration/keyboard_matrix.md)
+    - [Layout](configuration/layout.md)
+    - [Split keyboard](configuration/split.md)
+    - [Storage](configuration/storage.md)
+    - [Behavior](configuration/behavior.md)
+    - [Input device](configuration/input_device.md)
+    - [Wireless/Bluetooth](configuration/wireless.md)
+    - [Light](configuration/light.md)
+    - [Appendix](configuration/appendix.md)
+- [Keymap](keymap/keymap.md)
+    - [Special keys](keymap/special_keys.md)
 - [Vial support](vial_support.md)
 - [Wireless](wireless.md)
 - [Low-power](low_power.md)
@@ -25,7 +35,10 @@
 - [Binary size optimization](binary_size_optimization.md)
 - [Use Rust API](use_rust_api.md)
 
+# Input Devices
+- [Rotary encoder](input_devices/encoder.md)
+- [Joystick](input_devices/joystick.md)
+
 # Development
 - [Roadmap](roadmap.md)
 - [How to contribute](how_to_contribute.md)
-- [Contributing to the documentation](documentation_contributing.md)

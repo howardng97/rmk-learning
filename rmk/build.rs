@@ -1,10 +1,9 @@
 #[path = "./build_common.rs"]
 mod common;
 
-use std::env;
-use std::fs;
 use std::path::Path;
 use std::process::Command;
+use std::{env, fs};
 
 fn main() {
     // Set the compilation config
@@ -12,7 +11,6 @@ fn main() {
     common::set_target_cfgs(&mut cfgs);
 
     // Ensure build.rs is re-run if files change
-    // println!("cargo:rerun-if-changed=NEVER_EXISTS");
     println!("cargo:rerun-if-changed=.git/HEAD");
     println!("cargo:rerun-if-changed=build.rs");
 
@@ -40,7 +38,7 @@ fn main() {
     let build_hash = hasher.finalize();
 
     // Generate file contents
-    let contents = format!("pub const BUILD_HASH: u32 = {:#010x};\n", build_hash);
+    let contents = format!("pub(crate) const BUILD_HASH: u32 = {:#010x};\n", build_hash);
 
     // Write to constants.rs in the OUT_DIR
     let out_dir = env::var("OUT_DIR").unwrap();
